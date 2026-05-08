@@ -626,30 +626,31 @@
                 return;
             }
 
-            let message = `Halo Admin Lava Drink,%0A%0ASaya ingin memesan:%0A`;
+            // Gunakan \n biasa untuk baris baru (enter)
+            let message = `Halo Admin Lava Drink,\n\nSaya ingin memesan:\n`;
             
             let totalPrice = 0;
             cart.forEach(item => {
                 const subTotal = item.price * item.qty;
                 totalPrice += subTotal;
-                message += `- ${item.qty}x ${item.name} (Rp ${subTotal.toLocaleString('id-ID')})%0A`;
+                message += `- ${item.qty}x ${item.name} (Rp ${subTotal.toLocaleString('id-ID')})\n`;
             });
 
-            message += `%0A*Total Belanja: Rp ${totalPrice.toLocaleString('id-ID')}*%0A`;
-            message += `%0A*Data Pengiriman:*%0A👤 Nama: ${name}%0A📍 Alamat: ${address}`;
+            message += `\n*Total Belanja: Rp ${totalPrice.toLocaleString('id-ID')}*\n`;
+            message += `\n*Data Pengiriman:*\n👤 Nama: ${name}\n📍 Alamat: ${address}`;
             
             if (notes) {
-                message += `%0A📝 Catatan: ${notes}`;
+                message += `\n📝 Catatan: ${notes}`;
             }
 
-            message += `%0A%0AMohon konfirmasi total biaya ongkir dan pembayarannya ya. Terima kasih!`;
+            message += `\n\nMohon konfirmasi total biaya ongkir dan pembayarannya ya. Terima kasih!`;
 
+            // BUNGKUS PESAN DENGAN encodeURIComponent AGAR SIMBOL & TIDAK NGEBUG
+            const encodedMessage = encodeURIComponent(message);
             const phone = "6288224184946"; 
-            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
             
-            // Opsi: Mengosongkan keranjang setelah kirim WA
-            // cart = []; 
-            // updateCartUI();
+            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
+            
             toggleCart();
         }
     </script>
