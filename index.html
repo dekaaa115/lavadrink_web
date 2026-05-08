@@ -6,17 +6,13 @@
     <meta property="og:title" content="Lava Drink | Sensasi Lumer di Mulut">
     <meta property="og:description" content="Nikmati kesegaran hakiki dari perpaduan susu creamy dan lelehan 'Lava' spesial. Pesan sekarang!">
     <meta property="og:type" content="website">
-    
     <meta property="og:url" content="https://lavadrink-web.vercel.app/">
     <meta property="og:image" content="https://lavadrink-web.vercel.app/assets/all-menu.png">
     <title>Lava Drink | Sensasi Lumer di Mulut</title>
     
     <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script>
@@ -47,9 +43,7 @@
             background-image: radial-gradient(circle at top left, var(--blob-color, #f8e6e8) 0%, transparent 40%),
                               radial-gradient(circle at bottom right, var(--blob-color, #f8e6e8) 0%, transparent 40%);
         }
-        .dark .blob-bg {
-            --blob-color: #3f1017;
-        }
+        .dark .blob-bg { --blob-color: #3f1017; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -63,6 +57,18 @@
     </script>
 </head>
 <body class="selection:bg-lava selection:text-white bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 antialiased overflow-x-hidden transition-colors duration-300">
+
+    <div id="toast-notification" class="fixed top-24 left-1/2 -translate-x-1/2 z-[110] bg-slate-900/90 dark:bg-white/90 backdrop-blur-md text-white dark:text-slate-900 px-6 py-3 rounded-full shadow-2xl transform -translate-y-10 opacity-0 transition-all duration-300 flex items-center gap-3 pointer-events-none">
+        <div class="bg-[#25D366] rounded-full p-1">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <span id="toast-message" class="font-bold text-sm md:text-base">Ditambahkan ke keranjang!</span>
+    </div>
+
+    <button id="floating-cart" onclick="toggleCart()" class="fixed bottom-6 lg:bottom-10 right-6 lg:right-10 z-[80] bg-lava hover:bg-lava-dark text-white p-4 rounded-full shadow-[0_10px_40px_rgba(136,25,42,0.4)] transform hover:-translate-y-2 transition-all duration-300 hidden group">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+        <span id="cart-badge" class="absolute -top-2 -right-2 bg-yellow-400 text-slate-900 border-2 border-white dark:border-slate-900 rounded-full w-7 h-7 flex items-center justify-center font-black text-xs shadow-lg group-hover:scale-110 transition-transform">0</span>
+    </button>
 
     <nav class="fixed w-full z-50 top-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-100 dark:border-slate-800 transition-all" data-aos="fade-down" data-aos-duration="800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,9 +90,10 @@
                         <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                     </button>
 
-                    <a href="https://wa.me/6288224184946?text=Halo%20Admin%20Lava%20Drink,%20saya%20ingin%20bertanya%20tentang%20pesanan" target="_blank" class="hidden md:inline-flex bg-lava hover:bg-lava-dark text-white px-6 py-2.5 rounded-full text-sm md:text-base font-semibold transition shadow-lg shadow-lava/30 transform hover:-translate-y-1">
-                        Hubungi Kami
-                    </a>
+                    <button onclick="toggleCart()" class="hidden md:flex items-center gap-2 bg-lava-50 dark:bg-lava-900/30 text-lava dark:text-lava-light px-5 py-2.5 rounded-full text-sm font-semibold transition hover:bg-lava hover:text-white dark:hover:bg-lava dark:hover:text-white group">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        Keranjang
+                    </button>
 
                     <button id="mobile-menu-btn" type="button" class="md:hidden text-slate-600 dark:text-slate-300 hover:text-lava hover:bg-lava-50 dark:hover:bg-slate-800 p-2 rounded-lg transition-colors focus:outline-none">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -113,11 +120,10 @@
             <a href="#menu" class="mobile-link flex items-center justify-between hover:text-lava transition border-b border-gray-100 dark:border-slate-800 pb-4">
                 Daftar Menu <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </a>
+            <a href="#" onclick="toggleCart(); closeMenu(); return false;" class="flex items-center justify-between text-lava transition border-b border-gray-100 dark:border-slate-800 pb-4">
+                Lihat Keranjang <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </a>
         </div>
-        
-        <a href="https://wa.me/6288224184946?text=Halo%20Admin%20Lava%20Drink,%20saya%20ingin%20bertanya%20tentang%20pesanan" target="_blank" class="mt-auto bg-lava hover:bg-lava-dark text-white px-6 py-4 rounded-xl text-center font-bold transition shadow-lg shadow-lava/30 flex items-center justify-center gap-2">
-            Hubungi Admin
-        </a>
     </div>
 
     <section id="beranda" class="relative pt-28 pb-16 md:pt-32 md:pb-20 lg:pt-48 lg:pb-32 blob-bg overflow-hidden transition-colors duration-300">
@@ -147,17 +153,14 @@
 
                 <div class="relative mx-auto w-full max-w-sm md:max-w-md order-1 lg:order-2" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
                     <div class="absolute inset-0 bg-lava-100 dark:bg-lava-900/40 rounded-[3rem] transform translate-x-3 translate-y-3 md:translate-x-4 md:translate-y-4 -rotate-3 transition-colors animate-pulse duration-1000"></div>
-                    
                     <div class="relative bg-white dark:bg-slate-800 p-3 md:p-4 rounded-3xl shadow-2xl z-10 border border-gray-100 dark:border-slate-700 transition-colors group hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(136,25,42,0.15)] duration-500">
                         <div class="absolute -top-4 -left-4 md:-top-5 md:-left-5 bg-white dark:bg-slate-800 px-3 md:px-4 py-1.5 md:py-2 rounded-xl shadow-lg border border-gray-50 dark:border-slate-700 flex flex-col z-20 transition-colors animate-bounce" style="animation-duration: 3s;">
                             <span class="text-[8px] md:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">All Variants</span>
                             <span class="text-lava dark:text-lava-light font-bold text-sm md:text-base">Lava Drink</span>
                         </div>
-                        
                         <div class="bg-gray-100 dark:bg-slate-700 rounded-2xl h-[300px] sm:h-[350px] md:h-[400px] overflow-hidden relative transition-colors">
                             <img src="assets/all-menu.png" alt="Lava Drink" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         </div>
-
                         <div class="absolute -bottom-4 -right-4 md:-bottom-5 md:-right-5 bg-white dark:bg-slate-800 p-2.5 md:p-3 rounded-2xl shadow-xl flex items-center gap-2 md:gap-3 border border-gray-50 dark:border-slate-700 z-20 transition-colors">
                             <div class="w-8 h-8 md:w-10 md:h-10 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center text-yellow-500 text-sm md:text-base transform transition-transform group-hover:rotate-12">
                                 ⭐
@@ -222,11 +225,12 @@
                     </div>
                     <div class="p-5 md:p-6 flex-grow flex flex-col z-10 bg-white dark:bg-slate-800 relative">
                         <h3 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-lava transition-colors duration-300">Coklat Lava</h3>
-                        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mb-6 flex-grow">Perpaduan coklat premium dan susu creamy dengan lelehan lava cokelat pekat yang nikmat.</p>
+                        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mb-6 flex-grow">Perpaduan coklat premium dan susu creamy dengan lelehan lava cokelat pekat.</p>
                         <div class="flex justify-between items-center mt-auto border-t border-gray-100 dark:border-slate-700 pt-4 transition-colors">
                             <span class="text-lg md:text-xl font-extrabold text-lava dark:text-lava-light">Rp 15.000</span>
-                            <button onclick="openOrderModal('Coklat Lava', '15000')" class="bg-lava-50 dark:bg-lava-900/30 text-lava dark:text-lava-light hover:bg-lava dark:hover:bg-lava hover:text-white dark:hover:text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold transition flex items-center gap-1 cursor-pointer transform hover:scale-105 active:scale-95">
-                                Pesan <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <button onclick="addToCart('m1', 'Coklat Lava', 15000)" class="bg-lava-50 dark:bg-lava-900/30 text-lava dark:text-lava-light hover:bg-lava dark:hover:bg-lava hover:text-white dark:hover:text-white px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-bold transition flex items-center gap-1 cursor-pointer transform hover:scale-105 active:scale-95 group/btn">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                Keranjang
                             </button>
                         </div>
                     </div>
@@ -241,8 +245,9 @@
                         <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mb-6 flex-grow">Rasa cake red velvet cair berpadu dengan lava cream cheese yang gurih dan manis.</p>
                         <div class="flex justify-between items-center mt-auto border-t border-gray-100 dark:border-slate-700 pt-4 transition-colors">
                             <span class="text-lg md:text-xl font-extrabold text-lava dark:text-lava-light">Rp 15.000</span>
-                            <button onclick="openOrderModal('Red Velvet Lava', '15000')" class="bg-lava-50 dark:bg-lava-900/30 text-lava dark:text-lava-light hover:bg-lava dark:hover:bg-lava hover:text-white dark:hover:text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold transition flex items-center gap-1 cursor-pointer transform hover:scale-105 active:scale-95">
-                                Pesan <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <button onclick="addToCart('m2', 'Red Velvet Lava', 15000)" class="bg-lava-50 dark:bg-lava-900/30 text-lava dark:text-lava-light hover:bg-lava dark:hover:bg-lava hover:text-white dark:hover:text-white px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-bold transition flex items-center gap-1 cursor-pointer transform hover:scale-105 active:scale-95 group/btn">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                Keranjang
                             </button>
                         </div>
                     </div>
@@ -253,12 +258,13 @@
                         <img src="assets/CnC.png" alt="Cookies and Cream Lava" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out">
                     </div>
                     <div class="p-5 md:p-6 flex-grow flex flex-col z-10 bg-white dark:bg-slate-800 relative">
-                        <h3 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-lava transition-colors duration-300">Cookies & Cream Lava</h3>
-                        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mb-6 flex-grow">Kombinasi serpihan biskuit renyah dan susu creamy dengan sensasi lava manis yang lumer.</p>
+                        <h3 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-lava transition-colors duration-300">Cookies & Cream</h3>
+                        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mb-6 flex-grow">Kombinasi serpihan biskuit renyah dan susu creamy dengan sensasi lava manis lumer.</p>
                         <div class="flex justify-between items-center mt-auto border-t border-gray-100 dark:border-slate-700 pt-4 transition-colors">
                             <span class="text-lg md:text-xl font-extrabold text-lava dark:text-lava-light">Rp 15.000</span>
-                            <button onclick="openOrderModal('Cookies and Cream Lava', '15000')" class="bg-lava-50 dark:bg-lava-900/30 text-lava dark:text-lava-light hover:bg-lava dark:hover:bg-lava hover:text-white dark:hover:text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold transition flex items-center gap-1 cursor-pointer transform hover:scale-105 active:scale-95">
-                                Pesan <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <button onclick="addToCart('m3', 'Cookies & Cream Lava', 15000)" class="bg-lava-50 dark:bg-lava-900/30 text-lava dark:text-lava-light hover:bg-lava dark:hover:bg-lava hover:text-white dark:hover:text-white px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-bold transition flex items-center gap-1 cursor-pointer transform hover:scale-105 active:scale-95 group/btn">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                Keranjang
                             </button>
                         </div>
                     </div>
@@ -273,8 +279,9 @@
                         <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mb-6 flex-grow">Rasa ubi ungu lembut dengan sensasi lava taro manis natural, warnanya sangat cantik!</p>
                         <div class="flex justify-between items-center mt-auto border-t border-gray-100 dark:border-slate-700 pt-4 transition-colors">
                             <span class="text-lg md:text-xl font-extrabold text-lava dark:text-lava-light">Rp 15.000</span>
-                            <button onclick="openOrderModal('Taro Lava', '15000')" class="bg-lava-50 dark:bg-lava-900/30 text-lava dark:text-lava-light hover:bg-lava dark:hover:bg-lava hover:text-white dark:hover:text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold transition flex items-center gap-1 cursor-pointer transform hover:scale-105 active:scale-95">
-                                Pesan <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <button onclick="addToCart('m4', 'Taro Lava', 15000)" class="bg-lava-50 dark:bg-lava-900/30 text-lava dark:text-lava-light hover:bg-lava dark:hover:bg-lava hover:text-white dark:hover:text-white px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-bold transition flex items-center gap-1 cursor-pointer transform hover:scale-105 active:scale-95 group/btn">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                Keranjang
                             </button>
                         </div>
                     </div>
@@ -289,8 +296,9 @@
                         <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mb-6 flex-grow">Sensasi kopi capucino yang nikmat berpadu sempurna dengan lelehan lava kopi creamy.</p>
                         <div class="flex justify-between items-center mt-auto border-t border-gray-100 dark:border-slate-700 pt-4 transition-colors">
                             <span class="text-lg md:text-xl font-extrabold text-lava dark:text-lava-light">Rp 15.000</span>
-                            <button onclick="openOrderModal('Capucino Lava', '15000')" class="bg-lava-50 dark:bg-lava-900/30 text-lava dark:text-lava-light hover:bg-lava dark:hover:bg-lava hover:text-white dark:hover:text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold transition flex items-center gap-1 cursor-pointer transform hover:scale-105 active:scale-95">
-                                Pesan <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <button onclick="addToCart('m5', 'Capucino Lava', 15000)" class="bg-lava-50 dark:bg-lava-900/30 text-lava dark:text-lava-light hover:bg-lava dark:hover:bg-lava hover:text-white dark:hover:text-white px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-bold transition flex items-center gap-1 cursor-pointer transform hover:scale-105 active:scale-95 group/btn">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                Keranjang
                             </button>
                         </div>
                     </div>
@@ -300,89 +308,63 @@
         </div>
     </section>
 
-    <section id="kontak" class="py-16 md:py-24 bg-white dark:bg-slate-900 text-center transition-colors duration-300 border-t border-transparent dark:border-slate-800 overflow-hidden">
-        <div class="max-w-3xl mx-auto px-4" data-aos="zoom-in" data-aos-duration="1000">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-lava dark:text-lava-light mb-3 md:mb-4">Siap untuk Mencicipi?</h2>
-            <p class="text-slate-600 dark:text-slate-400 text-sm md:text-lg mb-8 md:mb-10 px-2">Jangan sampai kehabisan promo hari ini! Hubungi kami sekarang melalui WhatsApp untuk melakukan pemesanan.</p>
-            
-            <a href="https://wa.me/6288224184946?text=Halo%20Admin%20Lava%20Drink,%20saya%20ingin%20pesan%20minuman%20hari%20ini!" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center bg-[#25D366] text-white px-8 py-4 rounded-full font-bold text-base md:text-lg shadow-lg shadow-green-500/30 hover:bg-green-600 transition duration-300 transform hover:scale-105 active:scale-95">
-                <svg class="w-6 h-6 mr-3 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 2C6.48 2 2 6.48 2 12.031c0 1.764.453 3.447 1.311 4.966L2 22l5.161-1.309A9.972 9.972 0 0012.031 22c5.55 0 10.03-4.48 10.03-10.03 0-5.551-4.48-10.031-10.03-10.031zM17.47 15.65c-.234.66-1.353 1.28-1.85 1.358-.453.072-1.054.126-3.415-.853-2.85-1.183-4.686-4.103-4.83-4.296-.135-.184-1.15-1.536-1.15-2.93 0-1.393.72-2.08 1.01-2.395.27-.29.585-.36.784-.36.198 0 .396.002.576.01.198.01.468-.08.73.548.27.648.918 2.242.998 2.404.081.162.135.36.036.558-.09.198-.135.324-.27.468-.135.153-.288.324-.405.45-.135.135-.288.288-.126.567.162.27.72 1.18 1.548 1.918 1.072.955 1.98 1.252 2.26 1.396.27.144.432.126.594-.054.162-.18.684-.81.864-1.09.18-.28.36-.234.612-.144.252.09 1.602.756 1.872.89.27.135.45.207.522.324.072.117.072.684-.162 1.34z"/></svg>
-                Pesan via WhatsApp
-            </a>
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[90] hidden opacity-0 transition-opacity duration-300"></div>
+    
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full md:w-[450px] bg-slate-50 dark:bg-slate-900 z-[100] transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl flex flex-col border-l border-gray-200 dark:border-slate-800">
+        
+        <div class="bg-white dark:bg-slate-800 px-6 py-5 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center shadow-sm z-10">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <svg class="w-6 h-6 text-lava" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                Keranjang Pesanan
+            </h3>
+            <button onclick="toggleCart()" class="p-2 text-gray-400 hover:text-red-500 dark:hover:text-red-400 bg-gray-50 hover:bg-red-50 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-full transition-all duration-300 hover:rotate-90">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
         </div>
-    </section>
 
-    <div id="order-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/60 backdrop-blur-md p-4 transition-opacity duration-300 opacity-0" style="transition: opacity 0.3s ease;">
-        <div id="order-modal-content" class="bg-white dark:bg-slate-900 rounded-[2.5rem] w-full max-w-md shadow-2xl relative border border-white/20 dark:border-slate-700 max-h-[90vh] md:max-h-[95vh] overflow-y-auto no-scrollbar transform scale-95 transition-all duration-300 ease-out flex flex-col">
+        <div class="flex-1 overflow-y-auto p-6 no-scrollbar relative">
             
-            <div class="bg-gradient-to-br from-lava to-lava-dark px-6 py-5 md:px-8 md:py-6 relative overflow-hidden flex-shrink-0">
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl"></div>
-                <div class="absolute bottom-0 right-10 w-20 h-20 bg-black opacity-10 rounded-full blur-xl"></div>
-                
-                <h3 class="text-xl md:text-2xl font-bold text-white relative z-10 flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-                    Detail Pesanan
-                </h3>
-                
-                <button onclick="closeOrderModal()" class="absolute top-1/2 -translate-y-1/2 right-5 p-2 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all duration-300 hover:rotate-90 z-10">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-
-            <div class="p-6 md:p-8 pt-6">
-                <div class="space-y-4 mb-6">
-                    <div>
-                        <label class="block text-xs md:text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 ml-1">Nama Pemesan *</label>
-                        <input type="text" id="cust-name" class="w-full px-4 py-3 rounded-2xl border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-sm md:text-base text-slate-900 dark:text-white focus:outline-none focus:border-lava focus:bg-white dark:focus:bg-slate-800 transition-all duration-300 placeholder-slate-400" placeholder="Ketik nama Anda di sini...">
-                    </div>
-                    <div>
-                        <label class="block text-xs md:text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 ml-1">Alamat Pengiriman *</label>
-                        <textarea id="cust-address" rows="2" class="w-full px-4 py-3 rounded-2xl border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-sm md:text-base text-slate-900 dark:text-white focus:outline-none focus:border-lava focus:bg-white dark:focus:bg-slate-800 transition-all duration-300 placeholder-slate-400" placeholder="Cth: Jl. Sudirman No. 12 (Rumah cat hijau)"></textarea>
-                    </div>
-                </div>
-
-                <div class="border-t-2 border-dashed border-slate-200 dark:border-slate-700 mb-6 relative"></div>
-
-                <h3 class="text-sm md:text-base font-bold text-slate-900 dark:text-white mb-3 ml-1">Rincian Menu:</h3>
-                
-                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex justify-between items-center mb-6 relative overflow-hidden group">
-                    <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-lava transition-all duration-300"></div>
-                    <div class="pl-2">
-                        <h4 id="modal-item-name" class="font-bold text-slate-800 dark:text-white text-sm md:text-base">Nama Menu</h4>
-                        <p id="modal-item-price" class="text-lava dark:text-lava-light font-extrabold text-xs md:text-sm mt-1">Rp 15.000</p>
-                    </div>
-                    
-                    <div class="flex items-center bg-slate-50 dark:bg-slate-900 rounded-full p-1 border border-slate-100 dark:border-slate-700">
-                        <button onclick="updateQty(-1)" class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-lava hover:shadow-md flex items-center justify-center text-xl font-bold cursor-pointer transition-all transform active:scale-90 shadow-sm">&minus;</button>
-                        <span id="item-qty" class="w-8 font-bold text-slate-800 dark:text-white text-center select-none text-sm md:text-base transition-all">1</span>
-                        <button onclick="updateQty(1)" class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-lava hover:shadow-md flex items-center justify-center text-xl font-bold cursor-pointer transition-all transform active:scale-90 shadow-sm">&plus;</button>
-                    </div>
-                </div>
-
-                <div class="mb-6">
-                    <label class="block text-xs md:text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 ml-1 flex items-center gap-1">
-                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                        Catatan Tambahan (Opsional)
-                    </label>
-                    <textarea id="cust-notes" rows="2" class="w-full px-4 py-3 rounded-2xl border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-sm md:text-base text-slate-900 dark:text-white focus:outline-none focus:border-lava focus:bg-white dark:focus:bg-slate-800 transition-all duration-300 placeholder-slate-400" placeholder="Cth: Tolong esnya dipisah ya..."></textarea>
-                </div>
-
-                <div class="bg-gradient-to-br from-lava-50 to-white dark:from-slate-800 dark:to-slate-800 p-5 rounded-3xl border border-lava-100 dark:border-slate-700 mt-2 transition-colors relative overflow-hidden">
-                    <div class="absolute right-0 bottom-0 opacity-5 dark:opacity-10 rotate-12 translate-x-4 translate-y-4">
-                        <svg class="w-24 h-24 text-lava" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 2C6.48 2 2 6.48 2 12.031c0 1.764.453 3.447 1.311 4.966L2 22l5.161-1.309A9.972 9.972 0 0012.031 22c5.55 0 10.03-4.48 10.03-10.03 0-5.551-4.48-10.031-10.03-10.031zM17.47 15.65c-.234.66-1.353 1.28-1.85 1.358-.453.072-1.054.126-3.415-.853-2.85-1.183-4.686-4.103-4.83-4.296-.135-.184-1.15-1.536-1.15-2.93 0-1.393.72-2.08 1.01-2.395.27-.29.585-.36.784-.36.198 0 .396.002.576.01.198.01.468-.08.73.548.27.648.918 2.242.998 2.404.081.162.135.36.036.558-.09.198-.135.324-.27.468-.135.153-.288.324-.405.45-.135.135-.288.288-.126.567.162.27.72 1.18 1.548 1.918 1.072.955 1.98 1.252 2.26 1.396.27.144.432.126.594-.054.162-.18.684-.81.864-1.09.18-.28.36-.234.612-.144.252.09 1.602.756 1.872.89.27.135.45.207.522.324.072.117.072.684-.162 1.34z"/></svg>
-                    </div>
-                    
-                    <p class="text-xs md:text-sm font-semibold text-slate-600 dark:text-slate-400 mb-1 relative z-10">Total Belanja (Belum Ongkir):</p>
-                    <h3 id="modal-total-price" class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-6 transition-all relative z-10">Rp 15.000</h3>
-                    
-                    <button onclick="sendOrderWhatsApp()" class="w-full py-4 bg-[#25D366] hover:bg-green-600 text-white rounded-2xl font-bold text-sm md:text-base transition-all duration-300 flex justify-center items-center gap-2 shadow-[0_8px_20px_rgba(37,211,102,0.3)] hover:shadow-[0_8px_25px_rgba(37,211,102,0.4)] transform hover:-translate-y-1 active:translate-y-0 active:scale-95 relative z-10 group overflow-hidden">
-                        <div class="absolute inset-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-out"></div>
-                        
-                        <svg class="w-6 h-6 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 2C6.48 2 2 6.48 2 12.031c0 1.764.453 3.447 1.311 4.966L2 22l5.161-1.309A9.972 9.972 0 0012.031 22c5.55 0 10.03-4.48 10.03-10.03 0-5.551-4.48-10.031-10.03-10.031zM17.47 15.65c-.234.66-1.353 1.28-1.85 1.358-.453.072-1.054.126-3.415-.853-2.85-1.183-4.686-4.103-4.83-4.296-.135-.184-1.15-1.536-1.15-2.93 0-1.393.72-2.08 1.01-2.395.27-.29.585-.36.784-.36.198 0 .396.002.576.01.198.01.468-.08.73.548.27.648.918 2.242.998 2.404.081.162.135.36.036.558-.09.198-.135.324-.27.468-.135.153-.288.324-.405.45-.135.135-.288.288-.126.567.162.27.72 1.18 1.548 1.918 1.072.955 1.98 1.252 2.26 1.396.27.144.432.126.594-.054.162-.18.684-.81.864-1.09.18-.28.36-.234.612-.144.252.09 1.602.756 1.872.89.27.135.45.207.522.324.072.117.072.684-.162 1.34z"/></svg>
-                        Pesan via WhatsApp
-                    </button>
+            <div id="cart-items-container" class="space-y-4 mb-8">
+                <div class="text-center text-gray-400 dark:text-gray-500 py-10 flex flex-col items-center justify-center">
+                    <svg class="w-16 h-16 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    <p>Keranjang masih kosong nih.<br>Yuk pilih menu favoritmu!</p>
                 </div>
             </div>
+
+            <div id="cart-form" class="hidden opacity-0 transition-opacity duration-500 bg-white dark:bg-slate-800 p-5 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-sm">
+                <h4 class="font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2 text-sm border-b border-gray-100 dark:border-slate-700 pb-3">
+                    <svg class="w-4 h-4 text-lava" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Info Pengiriman
+                </h4>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 ml-1">Nama Pemesan *</label>
+                        <input type="text" id="cust-name" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-700/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-lava focus:bg-white dark:focus:bg-slate-800 transition-all placeholder-slate-400" placeholder="Ketik nama Anda...">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 ml-1">Alamat Lengkap *</label>
+                        <textarea id="cust-address" rows="2" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-700/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-lava focus:bg-white dark:focus:bg-slate-800 transition-all placeholder-slate-400" placeholder="Detail alamat & patokan..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 ml-1">Catatan (Opsional)</label>
+                        <input type="text" id="cust-notes" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-700/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-lava focus:bg-white dark:focus:bg-slate-800 transition-all placeholder-slate-400" placeholder="Cth: Pisah es, dsb">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-6 border-t border-gray-100 dark:border-slate-700 shadow-[0_-10px_20px_rgba(0,0,0,0.02)] z-10">
+            <div class="flex justify-between items-center mb-5">
+                <span class="text-slate-500 dark:text-slate-400 font-semibold text-sm">Total Belanja:</span>
+                <span id="cart-total-price" class="text-2xl font-black text-slate-900 dark:text-white">Rp 0</span>
+            </div>
+            
+            <button id="checkout-btn" onclick="sendCartToWA()" disabled class="w-full py-4 bg-[#25D366] hover:bg-green-600 text-white rounded-2xl font-bold text-[15px] transition-all duration-300 flex justify-center items-center gap-2 shadow-[0_8px_20px_rgba(37,211,102,0.3)] opacity-50 cursor-not-allowed group overflow-hidden relative">
+                <div class="absolute inset-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-out hidden" id="btn-glare"></div>
+                <svg class="w-6 h-6 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 2C6.48 2 2 6.48 2 12.031c0 1.764.453 3.447 1.311 4.966L2 22l5.161-1.309A9.972 9.972 0 0012.031 22c5.55 0 10.03-4.48 10.03-10.03 0-5.551-4.48-10.031-10.03-10.031zM17.47 15.65c-.234.66-1.353 1.28-1.85 1.358-.453.072-1.054.126-3.415-.853-2.85-1.183-4.686-4.103-4.83-4.296-.135-.184-1.15-1.536-1.15-2.93 0-1.393.72-2.08 1.01-2.395.27-.29.585-.36.784-.36.198 0 .396.002.576.01.198.01.468-.08.73.548.27.648.918 2.242.998 2.404.081.162.135.36.036.558-.09.198-.135.324-.27.468-.135.153-.288.324-.405.45-.135.135-.288.288-.126.567.162.27.72 1.18 1.548 1.918 1.072.955 1.98 1.252 2.26 1.396.27.144.432.126.594-.054.162-.18.684-.81.864-1.09.18-.28.36-.234.612-.144.252.09 1.602.756 1.872.89.27.135.45.207.522.324.072.117.072.684-.162 1.34z"/></svg>
+                Pesan via WhatsApp
+            </button>
         </div>
     </div>
 
@@ -398,7 +380,6 @@
                         Membawa sensasi kelezatan baru di setiap gigitan dan tegukan. Kami berkomitmen menyajikan hidangan berkualitas tinggi, higienis, dan pastinya menggugah selera untuk menemani harimu.
                     </p>
                 </div>
-                
                 <div>
                     <h4 class="text-white font-bold mb-5 text-lg">Tautan Cepat</h4>
                     <ul class="space-y-4 text-sm flex flex-col">
@@ -407,7 +388,6 @@
                         <li><a href="#menu" class="hover:text-lava transition flex items-center gap-3 transform hover:translate-x-2 w-max"><svg class="w-4 h-4 text-lava" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg> Daftar Menu</a></li>
                     </ul>
                 </div>
-
                 <div>
                     <h4 class="text-white font-bold mb-5 text-lg">Informasi Kontak</h4>
                     <ul class="space-y-5 text-sm flex flex-col">
@@ -440,45 +420,33 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Menjalankan library AOS (Animasi saat discroll)
-        AOS.init({
-            once: true, // Animasi hanya berjalan sekali saat di-scroll
-            offset: 50, // Mulai animasi sedikit lebih cepat di mobile
-            duration: 800, // Kecepatan animasi
-        });
+        AOS.init({ once: true, offset: 50, duration: 800 });
     </script>
 
     <script>
-        // --- LOGIKA BURGER MENU (MOBILE) ---
+        // --- LOGIKA BURGER MENU (MOBILE NAVBAR) ---
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const closeMenuBtn = document.getElementById('close-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        const mobileOverlay = document.getElementById('mobile-overlay');
+        const mobileOverlayNav = document.getElementById('mobile-overlay');
         const mobileLinks = document.querySelectorAll('.mobile-link');
 
         function openMenu() {
-            mobileOverlay.classList.remove('hidden');
-            setTimeout(() => {
-                mobileOverlay.classList.remove('opacity-0');
-            }, 10);
+            mobileOverlayNav.classList.remove('hidden');
+            setTimeout(() => mobileOverlayNav.classList.remove('opacity-0'), 10);
             mobileMenu.classList.remove('translate-x-full');
         }
 
         function closeMenu() {
             mobileMenu.classList.add('translate-x-full');
-            mobileOverlay.classList.add('opacity-0');
-            setTimeout(() => {
-                mobileOverlay.classList.add('hidden');
-            }, 300);
+            mobileOverlayNav.classList.add('opacity-0');
+            setTimeout(() => mobileOverlayNav.classList.add('hidden'), 300);
         }
 
         mobileMenuBtn.addEventListener('click', openMenu);
         closeMenuBtn.addEventListener('click', closeMenu);
-        mobileOverlay.addEventListener('click', closeMenu);
-        
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', closeMenu);
-        });
+        mobileOverlayNav.addEventListener('click', closeMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
 
         // --- LOGIKA DARK MODE ---
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
@@ -514,88 +482,141 @@
             }
         });
 
-        // --- LOGIKA MODAL PEMESANAN & HITUNG HARGA ---
-        let currentItemName = "";
-        let basePrice = 0;
-        let itemQty = 1;
+        // --- LOGIKA SISTEM KERANJANG (SHOPPING CART) ---
+        let cart = []; // Menyimpan data pesanan
 
-        // Buka Pop-up dengan efek transisi
-        function openOrderModal(itemName, itemPrice) {
-            currentItemName = itemName;
-            basePrice = parseInt(itemPrice); 
-            itemQty = 1; 
+        // Toggle Buka/Tutup Drawer Keranjang
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-overlay');
             
-            const formattedPrice = basePrice.toLocaleString('id-ID');
-            document.getElementById('modal-item-name').innerText = itemName;
-            document.getElementById('modal-item-price').innerText = "Rp " + formattedPrice;
-            
-            updateTotalUI(); 
-            
-            const modal = document.getElementById('order-modal');
-            const modalContent = document.getElementById('order-modal-content');
-            
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            
-            // Efek Fade In dan Pop (Scale)
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
-            }, 10);
+            if (drawer.classList.contains('translate-x-full')) {
+                // Buka
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                drawer.classList.remove('translate-x-full');
+            } else {
+                // Tutup
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
         }
 
-        // Tutup Pop-up dengan efek transisi
-        function closeOrderModal() {
-            const modal = document.getElementById('order-modal');
-            const modalContent = document.getElementById('order-modal-content');
+        // Tambah ke Keranjang
+        function addToCart(id, name, price) {
+            // Cek apakah item sudah ada di keranjang
+            const existingItem = cart.find(item => item.id === id);
             
-            // Animasi Fade Out
-            modal.classList.add('opacity-0');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }, 300); // Waktu sesuai durasi CSS transition
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ id, name, price, qty: 1 });
+            }
+            
+            updateCartUI();
+            showToast(name + " ditambahkan!");
         }
 
-        // Logika Plus Minus (Quantity)
-        function updateQty(changeAmount) {
-            const qtyElement = document.getElementById('item-qty');
-            
-            // Sedikit animasi scale saat diklik
-            qtyElement.classList.add('scale-125', 'text-lava');
-            setTimeout(() => {
-                qtyElement.classList.remove('scale-125', 'text-lava');
-            }, 150);
-
-            itemQty += changeAmount;
-            if (itemQty < 1) itemQty = 1; 
-            
-            updateTotalUI();
+        // Update Jumlah Item (+/-)
+        function updateQty(id, delta) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    // Hapus jika jumlahnya 0
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            updateCartUI();
         }
 
-        // Kalkulasi Total Harga dan Update Tampilan
-        function updateTotalUI() {
-            document.getElementById('item-qty').innerText = itemQty;
+        // Tampilkan Toast Notifikasi
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            document.getElementById('toast-message').innerText = message;
             
-            const total = itemQty * basePrice;
-            const formattedTotal = total.toLocaleString('id-ID');
+            toast.classList.remove('-translate-y-10', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
             
-            const totalPriceElement = document.getElementById('modal-total-price');
-            totalPriceElement.innerText = "Rp " + formattedTotal;
-            
-            // Efek kedip ringan saat harga berubah
-            totalPriceElement.classList.add('text-green-500');
             setTimeout(() => {
-                totalPriceElement.classList.remove('text-green-500');
-            }, 200);
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('-translate-y-10', 'opacity-0');
+            }, 2500); // Hilang otomatis setelah 2.5 detik
         }
 
-        // Format Pesan ke WhatsApp
-        function sendOrderWhatsApp() {
+        // Render UI Keranjang
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const badge = document.getElementById('cart-badge');
+            const form = document.getElementById('cart-form');
+            const floatingBtn = document.getElementById('floating-cart');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const btnGlare = document.getElementById('btn-glare');
+            const totalEl = document.getElementById('cart-total-price');
+
+            // 1. Hitung total item & harga
+            let totalItems = 0;
+            let totalPrice = 0;
+            
+            cart.forEach(item => {
+                totalItems += item.qty;
+                totalPrice += (item.price * item.qty);
+            });
+
+            // 2. Update Badge & Floating Button
+            badge.innerText = totalItems;
+            if (totalItems > 0) {
+                floatingBtn.classList.remove('hidden');
+                form.classList.remove('hidden');
+                setTimeout(() => form.classList.remove('opacity-0'), 10);
+            } else {
+                floatingBtn.classList.add('hidden');
+                form.classList.add('opacity-0');
+                setTimeout(() => form.classList.add('hidden'), 300);
+            }
+
+            // 3. Render HTML List Item
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-gray-400 dark:text-gray-500 py-10 flex flex-col items-center justify-center">
+                        <svg class="w-16 h-16 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <p>Keranjang masih kosong nih.<br>Yuk pilih menu favoritmu!</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = cart.map(item => `
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm flex justify-between items-center relative overflow-hidden group">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-lava"></div>
+                        <div class="pl-2">
+                            <h4 class="font-bold text-slate-800 dark:text-white text-sm md:text-base">${item.name}</h4>
+                            <p class="text-lava dark:text-lava-light font-extrabold text-xs md:text-sm mt-0.5">Rp ${(item.price * item.qty).toLocaleString('id-ID')}</p>
+                        </div>
+                        <div class="flex items-center bg-slate-50 dark:bg-slate-900 rounded-full p-1 border border-slate-100 dark:border-slate-700">
+                            <button onclick="updateQty('${item.id}', -1)" class="w-7 h-7 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-lava shadow-sm flex items-center justify-center text-lg font-bold transition-all active:scale-90">&minus;</button>
+                            <span class="w-6 text-center font-bold text-slate-800 dark:text-white text-sm">${item.qty}</span>
+                            <button onclick="updateQty('${item.id}', 1)" class="w-7 h-7 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-lava shadow-sm flex items-center justify-center text-lg font-bold transition-all active:scale-90">&plus;</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // 4. Update Total Harga & Tombol Checkout
+            totalEl.innerText = "Rp " + totalPrice.toLocaleString('id-ID');
+            
+            if (cart.length > 0) {
+                checkoutBtn.disabled = false;
+                checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                btnGlare.classList.remove('hidden');
+            } else {
+                checkoutBtn.disabled = true;
+                checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                btnGlare.classList.add('hidden');
+            }
+        }
+
+        // Kirim ke WhatsApp
+        function sendCartToWA() {
             const name = document.getElementById('cust-name').value.trim();
             const address = document.getElementById('cust-address').value.trim();
             const notes = document.getElementById('cust-notes').value.trim();
@@ -605,23 +626,31 @@
                 return;
             }
 
-            const total = itemQty * basePrice;
-            const formattedTotal = total.toLocaleString('id-ID');
+            let message = `Halo Admin Lava Drink,%0A%0ASaya ingin memesan:%0A`;
             
-            const phone = "6288224184946"; 
-            
-            let message = `Halo Admin Lava Drink,%0A%0ASaya ingin memesan:%0A*${itemQty}x ${currentItemName}*%0A*Total Belanja: Rp ${formattedTotal}*%0A%0A*Data Pengiriman:*%0A👤 Nama: ${name}%0A📍 Alamat: ${address}`;
+            let totalPrice = 0;
+            cart.forEach(item => {
+                const subTotal = item.price * item.qty;
+                totalPrice += subTotal;
+                message += `- ${item.qty}x ${item.name} (Rp ${subTotal.toLocaleString('id-ID')})%0A`;
+            });
+
+            message += `%0A*Total Belanja: Rp ${totalPrice.toLocaleString('id-ID')}*%0A`;
+            message += `%0A*Data Pengiriman:*%0A👤 Nama: ${name}%0A📍 Alamat: ${address}`;
             
             if (notes) {
                 message += `%0A📝 Catatan: ${notes}`;
             }
 
-            message += `%0A%0AMohon konfirmasi biaya ongkir dan pembayarannya ya. Terima kasih!`;
+            message += `%0A%0AMohon konfirmasi total biaya ongkir dan pembayarannya ya. Terima kasih!`;
 
-            const waUrl = `https://wa.me/${phone}?text=${message}`;
-            window.open(waUrl, '_blank');
+            const phone = "6288224184946"; 
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
             
-            closeOrderModal();
+            // Opsi: Mengosongkan keranjang setelah kirim WA
+            // cart = []; 
+            // updateCartUI();
+            toggleCart();
         }
     </script>
 </body>
