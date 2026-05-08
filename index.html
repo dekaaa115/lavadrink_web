@@ -312,52 +312,76 @@
         </div>
     </section>
 
-    <div id="order-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0">
-        <div id="order-modal-content" class="bg-white dark:bg-slate-800 rounded-[2rem] p-5 md:p-8 w-full max-w-md shadow-2xl relative border border-gray-100 dark:border-slate-700 max-h-[90vh] md:max-h-[95vh] overflow-y-auto no-scrollbar transform scale-95 transition-transform duration-300 ease-out">
+    <div id="order-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/60 backdrop-blur-md p-4 transition-opacity duration-300 opacity-0" style="transition: opacity 0.3s ease;">
+        <div id="order-modal-content" class="bg-white dark:bg-slate-900 rounded-[2.5rem] w-full max-w-md shadow-2xl relative border border-white/20 dark:border-slate-700 max-h-[90vh] md:max-h-[95vh] overflow-y-auto no-scrollbar transform scale-95 transition-all duration-300 ease-out flex flex-col">
             
-            <button onclick="closeOrderModal()" class="absolute top-4 right-4 md:top-5 md:right-5 p-2 text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:rotate-90 transition-all duration-300">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-
-            <div class="space-y-4 mb-5 md:mb-6 mt-1 md:mt-2">
-                <div>
-                    <label class="block text-xs md:text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 md:mb-2">Nama Pemesan *</label>
-                    <input type="text" id="cust-name" class="w-full px-4 py-2.5 md:py-3 rounded-xl border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-sm md:text-base text-slate-900 dark:text-white focus:outline-none focus:border-lava focus:ring-1 focus:ring-lava transition-colors" placeholder="Masukkan nama Anda">
-                </div>
-                <div>
-                    <label class="block text-xs md:text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 md:mb-2">Alamat Pengiriman *</label>
-                    <textarea id="cust-address" rows="2" class="w-full px-4 py-2.5 md:py-3 rounded-xl border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-sm md:text-base text-slate-900 dark:text-white focus:outline-none focus:border-lava focus:ring-1 focus:ring-lava transition-colors" placeholder="Detail alamat untuk kurir..."></textarea>
-                </div>
-            </div>
-
-            <h3 class="text-base md:text-lg font-bold text-slate-900 dark:text-white mb-2 md:mb-3">Pilih Pesanan:</h3>
-            
-            <div class="bg-gray-50 dark:bg-slate-700/50 p-3 md:p-4 rounded-2xl border border-gray-200 dark:border-slate-600 flex justify-between items-center mb-5 md:mb-6 transition-colors">
-                <div>
-                    <h4 id="modal-item-name" class="font-bold text-slate-800 dark:text-white text-sm md:text-[15px]">Nama Menu</h4>
-                    <p id="modal-item-price" class="text-yellow-600 dark:text-yellow-500 font-extrabold text-xs md:text-sm mt-1">Rp 15.000</p>
-                </div>
+            <div class="bg-gradient-to-br from-lava to-lava-dark px-6 py-5 md:px-8 md:py-6 relative overflow-hidden flex-shrink-0">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl"></div>
+                <div class="absolute bottom-0 right-10 w-20 h-20 bg-black opacity-10 rounded-full blur-xl"></div>
                 
-                <div class="flex items-center gap-2 md:gap-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-500 rounded-lg px-2 py-1 shadow-sm">
-                    <button onclick="updateQty(-1)" class="text-gray-500 hover:text-lava px-3 py-1 text-2xl font-bold cursor-pointer transition-colors active:scale-90">&minus;</button>
-                    <span id="item-qty" class="font-bold text-slate-800 dark:text-white w-6 text-center select-none transition-all text-sm md:text-base">1</span>
-                    <button onclick="updateQty(1)" class="text-gray-500 hover:text-lava px-3 py-1 text-2xl font-bold cursor-pointer transition-colors active:scale-90">&plus;</button>
-                </div>
-            </div>
-
-            <div class="mb-5 md:mb-6">
-                <label class="block text-xs md:text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 md:mb-2">Catatan Tambahan (Opsional)</label>
-                <textarea id="cust-notes" rows="2" class="w-full px-4 py-2.5 md:py-3 rounded-xl border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm md:text-base text-slate-900 dark:text-white focus:outline-none focus:border-lava focus:ring-1 focus:ring-lava transition-colors" placeholder="Cth: Tolong packing rapat ya."></textarea>
-            </div>
-
-            <div class="bg-[#FEFCE8] dark:bg-slate-700/80 p-4 md:p-5 rounded-[1.25rem] border border-[#FEF08A] dark:border-slate-600 mt-2 transition-colors">
-                <p class="text-xs md:text-sm font-semibold text-slate-600 dark:text-slate-300 mb-1">Total Belanja (Belum Ongkir):</p>
-                <h3 id="modal-total-price" class="text-2xl md:text-[28px] font-extrabold text-slate-900 dark:text-white mb-4 md:mb-5 transition-all">Rp 15.000</h3>
+                <h3 class="text-xl md:text-2xl font-bold text-white relative z-10 flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    Detail Pesanan
+                </h3>
                 
-                <button onclick="sendOrderWhatsApp()" class="w-full py-3.5 md:py-4 bg-[#25D366] hover:bg-green-600 text-white rounded-xl font-bold text-sm md:text-[15px] transition-all duration-300 flex justify-center items-center gap-2 shadow-md hover:shadow-xl transform hover:-translate-y-1 active:translate-y-0 active:scale-95">
-                    <svg class="w-5 h-5 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 2C6.48 2 2 6.48 2 12.031c0 1.764.453 3.447 1.311 4.966L2 22l5.161-1.309A9.972 9.972 0 0012.031 22c5.55 0 10.03-4.48 10.03-10.03 0-5.551-4.48-10.031-10.03-10.031zM17.47 15.65c-.234.66-1.353 1.28-1.85 1.358-.453.072-1.054.126-3.415-.853-2.85-1.183-4.686-4.103-4.83-4.296-.135-.184-1.15-1.536-1.15-2.93 0-1.393.72-2.08 1.01-2.395.27-.29.585-.36.784-.36.198 0 .396.002.576.01.198.01.468-.08.73.548.27.648.918 2.242.998 2.404.081.162.135.36.036.558-.09.198-.135.324-.27.468-.135.153-.288.324-.405.45-.135.135-.288.288-.126.567.162.27.72 1.18 1.548 1.918 1.072.955 1.98 1.252 2.26 1.396.27.144.432.126.594-.054.162-.18.684-.81.864-1.09.18-.28.36-.234.612-.144.252.09 1.602.756 1.872.89.27.135.45.207.522.324.072.117.072.684-.162 1.34z"/></svg>
-                    Kirim Format ke WhatsApp
+                <button onclick="closeOrderModal()" class="absolute top-1/2 -translate-y-1/2 right-5 p-2 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all duration-300 hover:rotate-90 z-10">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
+            </div>
+
+            <div class="p-6 md:p-8 pt-6">
+                <div class="space-y-4 mb-6">
+                    <div>
+                        <label class="block text-xs md:text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 ml-1">Nama Pemesan *</label>
+                        <input type="text" id="cust-name" class="w-full px-4 py-3 rounded-2xl border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-sm md:text-base text-slate-900 dark:text-white focus:outline-none focus:border-lava focus:bg-white dark:focus:bg-slate-800 transition-all duration-300 placeholder-slate-400" placeholder="Ketik nama Anda di sini...">
+                    </div>
+                    <div>
+                        <label class="block text-xs md:text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 ml-1">Alamat Pengiriman *</label>
+                        <textarea id="cust-address" rows="2" class="w-full px-4 py-3 rounded-2xl border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-sm md:text-base text-slate-900 dark:text-white focus:outline-none focus:border-lava focus:bg-white dark:focus:bg-slate-800 transition-all duration-300 placeholder-slate-400" placeholder="Cth: Jl. Sudirman No. 12 (Rumah cat hijau)"></textarea>
+                    </div>
+                </div>
+
+                <div class="border-t-2 border-dashed border-slate-200 dark:border-slate-700 mb-6 relative"></div>
+
+                <h3 class="text-sm md:text-base font-bold text-slate-900 dark:text-white mb-3 ml-1">Rincian Menu:</h3>
+                
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex justify-between items-center mb-6 relative overflow-hidden group">
+                    <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-lava transition-all duration-300"></div>
+                    <div class="pl-2">
+                        <h4 id="modal-item-name" class="font-bold text-slate-800 dark:text-white text-sm md:text-base">Nama Menu</h4>
+                        <p id="modal-item-price" class="text-lava dark:text-lava-light font-extrabold text-xs md:text-sm mt-1">Rp 15.000</p>
+                    </div>
+                    
+                    <div class="flex items-center bg-slate-50 dark:bg-slate-900 rounded-full p-1 border border-slate-100 dark:border-slate-700">
+                        <button onclick="updateQty(-1)" class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-lava hover:shadow-md flex items-center justify-center text-xl font-bold cursor-pointer transition-all transform active:scale-90 shadow-sm">&minus;</button>
+                        <span id="item-qty" class="w-8 font-bold text-slate-800 dark:text-white text-center select-none text-sm md:text-base transition-all">1</span>
+                        <button onclick="updateQty(1)" class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-lava hover:shadow-md flex items-center justify-center text-xl font-bold cursor-pointer transition-all transform active:scale-90 shadow-sm">&plus;</button>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-xs md:text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 ml-1 flex items-center gap-1">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                        Catatan Tambahan (Opsional)
+                    </label>
+                    <textarea id="cust-notes" rows="2" class="w-full px-4 py-3 rounded-2xl border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-sm md:text-base text-slate-900 dark:text-white focus:outline-none focus:border-lava focus:bg-white dark:focus:bg-slate-800 transition-all duration-300 placeholder-slate-400" placeholder="Cth: Tolong esnya dipisah ya..."></textarea>
+                </div>
+
+                <div class="bg-gradient-to-br from-lava-50 to-white dark:from-slate-800 dark:to-slate-800 p-5 rounded-3xl border border-lava-100 dark:border-slate-700 mt-2 transition-colors relative overflow-hidden">
+                    <div class="absolute right-0 bottom-0 opacity-5 dark:opacity-10 rotate-12 translate-x-4 translate-y-4">
+                        <svg class="w-24 h-24 text-lava" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 2C6.48 2 2 6.48 2 12.031c0 1.764.453 3.447 1.311 4.966L2 22l5.161-1.309A9.972 9.972 0 0012.031 22c5.55 0 10.03-4.48 10.03-10.03 0-5.551-4.48-10.031-10.03-10.031zM17.47 15.65c-.234.66-1.353 1.28-1.85 1.358-.453.072-1.054.126-3.415-.853-2.85-1.183-4.686-4.103-4.83-4.296-.135-.184-1.15-1.536-1.15-2.93 0-1.393.72-2.08 1.01-2.395.27-.29.585-.36.784-.36.198 0 .396.002.576.01.198.01.468-.08.73.548.27.648.918 2.242.998 2.404.081.162.135.36.036.558-.09.198-.135.324-.27.468-.135.153-.288.324-.405.45-.135.135-.288.288-.126.567.162.27.72 1.18 1.548 1.918 1.072.955 1.98 1.252 2.26 1.396.27.144.432.126.594-.054.162-.18.684-.81.864-1.09.18-.28.36-.234.612-.144.252.09 1.602.756 1.872.89.27.135.45.207.522.324.072.117.072.684-.162 1.34z"/></svg>
+                    </div>
+                    
+                    <p class="text-xs md:text-sm font-semibold text-slate-600 dark:text-slate-400 mb-1 relative z-10">Total Belanja (Belum Ongkir):</p>
+                    <h3 id="modal-total-price" class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-6 transition-all relative z-10">Rp 15.000</h3>
+                    
+                    <button onclick="sendOrderWhatsApp()" class="w-full py-4 bg-[#25D366] hover:bg-green-600 text-white rounded-2xl font-bold text-sm md:text-base transition-all duration-300 flex justify-center items-center gap-2 shadow-[0_8px_20px_rgba(37,211,102,0.3)] hover:shadow-[0_8px_25px_rgba(37,211,102,0.4)] transform hover:-translate-y-1 active:translate-y-0 active:scale-95 relative z-10 group overflow-hidden">
+                        <div class="absolute inset-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-out"></div>
+                        
+                        <svg class="w-6 h-6 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 2C6.48 2 2 6.48 2 12.031c0 1.764.453 3.447 1.311 4.966L2 22l5.161-1.309A9.972 9.972 0 0012.031 22c5.55 0 10.03-4.48 10.03-10.03 0-5.551-4.48-10.031-10.03-10.031zM17.47 15.65c-.234.66-1.353 1.28-1.85 1.358-.453.072-1.054.126-3.415-.853-2.85-1.183-4.686-4.103-4.83-4.296-.135-.184-1.15-1.536-1.15-2.93 0-1.393.72-2.08 1.01-2.395.27-.29.585-.36.784-.36.198 0 .396.002.576.01.198.01.468-.08.73.548.27.648.918 2.242.998 2.404.081.162.135.36.036.558-.09.198-.135.324-.27.468-.135.153-.288.324-.405.45-.135.135-.288.288-.126.567.162.27.72 1.18 1.548 1.918 1.072.955 1.98 1.252 2.26 1.396.27.144.432.126.594-.054.162-.18.684-.81.864-1.09.18-.28.36-.234.612-.144.252.09 1.602.756 1.872.89.27.135.45.207.522.324.072.117.072.684-.162 1.34z"/></svg>
+                        Pesan via WhatsApp
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -434,7 +458,6 @@
 
         function openMenu() {
             mobileOverlay.classList.remove('hidden');
-            // Sedikit delay agar transisi opacity terlihat mulus
             setTimeout(() => {
                 mobileOverlay.classList.remove('opacity-0');
             }, 10);
@@ -446,14 +469,13 @@
             mobileOverlay.classList.add('opacity-0');
             setTimeout(() => {
                 mobileOverlay.classList.add('hidden');
-            }, 300); // Waktu sama dengan durasi transisi Tailwind (duration-300)
+            }, 300);
         }
 
         mobileMenuBtn.addEventListener('click', openMenu);
         closeMenuBtn.addEventListener('click', closeMenu);
         mobileOverlay.addEventListener('click', closeMenu);
         
-        // Tutup menu saat salah satu link diklik
         mobileLinks.forEach(link => {
             link.addEventListener('click', closeMenu);
         });
